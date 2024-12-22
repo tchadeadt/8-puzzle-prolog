@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>8-Puzzle Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="game-container">
+            <h1>8-Puzzle Game</h1>
+            <div class="game-info">
+                <div id="moves">Moves: 0</div>
+                <button id="shuffle-button">Shuffle</button>
+                <button id="solve-button">Solve</button>
+            </div>
+            <div class="image-selection">
+                <h2>Select an Image</h2>
+                <div class="image-grid">
+                    <img src="images/img1.jpg" alt="Puzzle 1" class="puzzle-option" data-image="puzzle1">
+                    <img src="images/img2.webp" alt="Puzzle 2" class="puzzle-option" data-image="puzzle2">
+                    <img src="images/img3.jpeg" alt="Puzzle 3" class="puzzle-option" data-image="puzzle3">
+                </div>
+            </div>
+            <div id="game-board"></div>
+            <div id="message"></div>
+        </div>
+        <div class="solution">
+            <pre>
+
+            </pre>
+        </div>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>

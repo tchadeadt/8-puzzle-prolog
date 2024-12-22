@@ -1,0 +1,453 @@
+/* Base styles */
+html, body {
+    margin: 0;
+    min-height: 100%;
+    height: auto;  /* Changed from 100% to auto */
+    font-family: "Quicksand", sans-serif;
+    background-color: #456685;
+    color: #FDF8F5;
+    overflow-y: auto;  /* Changed from hidden to auto */
+}
+
+/* Layout containers */
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;  /* Changed from 100% to auto */
+    flex-direction: column;  /* Always column layout */
+}
+
+.game-container {
+    flex: none;  /* Changed from flex: 3 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: auto;  /* Changed from 100vh */
+}
+
+.solution {
+    flex: none;  /* Changed from flex: 1 */
+    background-color: #492b2b;
+    padding: 20px;
+    margin: 10px;
+    min-height: 100px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+/* Game board */
+#game-board {
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin: 20px auto;
+    position: relative;
+    background-color: black;
+    box-shadow: 0 0 3px rgba(5, 13, 26, 0.8);
+    overflow: hidden;
+}
+
+/* Tile styles */
+.tile {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 3px rgba(5, 13, 26, 0.8);
+    box-sizing: border-box;
+    z-index: 2;
+    transition: all .3s, opacity 1s ease-in, filter 1s ease-in;
+}
+
+.tile > span {
+    visibility: visible;
+    font-size: 2em;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.tile:hover {
+    background-color: #45a049;
+}
+
+.tile.empty {
+    background-color: #000000;
+    cursor: default;
+    opacity: 0.3;
+    background-blend-mode: luminosity;
+}
+
+.tile.empty::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    opacity: 0.2;
+    z-index: 1;
+}
+
+/* Buttons and controls */
+.game-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Image selection */
+.image-selection {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.puzzle-option {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    margin: 5px;
+    border: 2px solid transparent;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.puzzle-option:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+}
+
+.puzzle-option.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Animation */
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes hinge {
+    0% {
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+    20%, 60% {
+        transform: rotate3d(0, 0, 1, 80deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+    40%, 80% {
+        transform: rotate3d(0, 0, 1, 60deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+        opacity: 1;
+    }
+    to {
+        transform: translate3d(0, 700px, 0);
+        opacity: 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .game-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .solution {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid #ccc;
+    }
+
+    #game-board {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .game-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        overflow-y: auto !important;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: visible;
+        gap: 20px;
+        padding-bottom: 20px;
+    }
+
+    .game-container {
+        width: 100%;
+        padding: 10px;
+        height: auto;
+        min-height: auto;
+        overflow-y: visible;
+    }
+
+    .solution {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid #ccc;
+    }
+
+    #game-board {
+        width: 90vw;
+        max-width: 350px;
+        margin: 10px auto;
+        aspect-ratio: 1;
+        height: auto;
+        transform: scale(0.95);
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .game-info {
+        flex-direction: column;
+        align-items: flex-start;
+        position: sticky;
+        top: 0;
+        background-color: #456685;
+        z-index: 10;
+        padding: 10px 0;
+    }
+
+    .tile {
+        font-size: 18px;
+    }
+
+    .tile > span {
+        font-size: 1.5em;
+    }
+
+    .image-selection {
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .puzzle-option {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+}
+
+/* Mobile Responsive Design */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+        margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .game-container {
+        padding: 10px;
+        min-height: 80vh;
+    }
+
+    .solution {
+        height: 20vh;
+        border-left: none;
+        border-top: 2px solid #666;
+        max-height: 150px;
+    }
+
+    #game-board {
+        width: 90vw;
+        max-width: 350px;
+        margin: 10px auto;
+    }
+
+    .tile {
+        font-size: 18px;
+        touch-action: manipulation;
+    }
+
+    .tile > span {
+        font-size: 1.5em;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .puzzle-option {
+        width: 80px;
+        height: 80px;
+    }
+
+    .game-info {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0;
+        font-size: 1.1rem;
+    }
+
+    #moves {
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 360px) {
+    #game-board {
+        transform: scale(0.9);
+        margin: 0 auto;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 360px) {
+    #game-board {
+        width: 95vw;
+        max-width: 300px;
+    }
+
+    .puzzle-option {
+        width: 70px;
+        height: 70px;
+    }
+
+    .tile > span {
+        font-size: 1.2em;
+    }
+}
+
+/* Landscape orientation */
+@media screen and (max-height: 480px) and (orientation: landscape) {
+    .container {
+        flex-direction: row;
+    }
+
+    .game-container {
+        flex: 2;
+    }
+
+    .solution {
+        flex: 1;
+        height: 100vh;
+        max-height: none;
+        border-top: none;
+        border-left: 2px solid #666;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .game-info {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    button {
+        width: auto;
+    }
+}
